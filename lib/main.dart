@@ -54,16 +54,7 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: const Color(0xffffc107),
       ),
-      body: Row(
-        children: <Widget>[
-          Container(
-            child: Column(
-              children: <Widget>[
-                TextFormField()
-              ],
-            ),
-          ),
-          Container(
+      body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -119,8 +110,6 @@ class _HomePageState extends State<HomePage> {
                 )).toList(),
               ),
           ),
-        ],
-      ),
     );
   }
 
