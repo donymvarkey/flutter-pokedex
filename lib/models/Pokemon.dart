@@ -165,7 +165,7 @@ class Sprites {
       });
 
   Sprites.fromJson(Map<String, dynamic> json) {
-    frontDefault = json['front_default'];
+    frontDefault = json['front_default'] == null ? "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/804.png" : json['front_default'];
   }
 
   Map<String, dynamic> toJson() {

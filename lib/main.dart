@@ -1,62 +1,45 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import "dart:convert";
+import 'package:pokedex/homeScreen.dart';
 
-import 'package:pokedex/models/Generations.dart';
-import 'package:pokedex/models/GenerationDetails.dart';
-import 'package:pokedex/generation_detail.dart';
-
-void main () => runApp(MaterialApp(
-  title: "Pokedex",
-  home: HomePage(
-  ),
-  debugShowCheckedModeBanner: false,
-));
-
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
+void main() {
+  runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: new SplashScreen(),
+    routes: <String, WidgetBuilder>{
+      '/HomeScreen': (BuildContext context) => new HomePage()
+    },
+  ));
 }
 
-class _HomePageState extends State<HomePage> {
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => new _SplashScreenState();
+}
 
-  var genUrl = "https://pokeapi.co/api/v2/generation/";
-  Generations generations;
+class _SplashScreenState extends State<SplashScreen> {
+  startTime() async {
+    var _duration = new Duration(seconds: 2);
+    return new Timer(_duration, navigationPage);
+  }
+
+  void navigationPage() {
+    Navigator.of(context).pushReplacementNamed('/HomeScreen');
+  }
 
   @override
   void initState() {
     super.initState();
-
-    fetchData();
+    startTime();
   }
 
-  fetchData() async {
-    var gen = await http.get(genUrl);
-    var decodedGen =  jsonDecode(gen.body);
-
-    generations = Generations.fromJson(decodedGen);
-    setState(() {
-
-    });
-  }
-
-    Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text(
-            'Pokédex',
-            style: TextStyle(
-              fontSize: 28.0,
-              color: Colors.black
-            ),
-          ),
-        ),
-        backgroundColor: const Color(0xffffc107),
-      ),
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
       body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
@@ -65,53 +48,12 @@ class _HomePageState extends State<HomePage> {
                   const Color(0xFFe65100)
                 ],
                 stops: [0.0, 0.5, 1.0]
-              )
-            ),
-            child: generations == null ?
-              Center(child: CircularProgressIndicator()
-              ) :
-              GridView.count(
-                crossAxisCount: 3,
-                children: generations.results.map((generation) => Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: InkWell(
-                    onTap: () async {
-                      var genIDetails = await http.get(generation.url);
-                      var decodedGenDetails = jsonDecode(genIDetails.body);
-
-                      var genI = GenerationDetails.fromJson(decodedGenDetails);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => GenDetails(
-                        generations: genI,
-                      )));
-                    },
-                    child: Container(
-                      child: Hero(
-                        tag: generation.name,
-                        child: Card(
-                        elevation: 3.0,
-                        color: const Color(0xfffff8e1),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                          Text(
-                                (generation.name[0].toUpperCase() + generation.name.substring(1, 11).toLowerCase() + generation.name.substring(11).toUpperCase()).replaceAll(RegExp("-"), " "),
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  // fontWeight: FontWeight.bold,
-                                  color: Colors.black
-                                ),
-                              ),
-                          ],
-                        ),
-                    ),
-                      ),
-                    ),
-                  ),
-                )).toList(),
-              ),
-          ),
+            )
+        ),
+        child: new Center(
+          child: new Image.asset('images/pokemon-logo.png'),
+        ),
+      ),
     );
   }
-
-
 }

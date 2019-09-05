@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import "dart:convert";
 import 'package:pokedex/pokemon.dart';
-import 'package:pokedex/models/Generations.dart';
 import 'package:pokedex/models/Pokemon.dart';
 import 'package:pokedex/models/GenerationDetails.dart';
 
@@ -51,7 +50,6 @@ class GenDetails extends StatelessWidget {
                 var decodedData = jsonDecode(data.body);
 
                 var pokeDetails = Pokemon.fromJson(decodedData);
-                print(pokeDetails.stats[0].stat.toJson());
                 Navigator.push(context, MaterialPageRoute(builder: (context) => PokeDetails(
                   pokemonDetails: pokeDetails,
                 )));
