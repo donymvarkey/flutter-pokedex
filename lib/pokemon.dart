@@ -190,19 +190,23 @@ class PokeDetails extends StatelessWidget {
                           "Types",
                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40.0, color: const Color(0xffeeff41)),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: pokemonDetails.types.map((t) => FilterChip(
-                            backgroundColor: Colors.cyan,
-                            label: Text(
-                              t.type.name,
-                              style: TextStyle(
-                                  color: Colors.white
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: pokemonDetails.types.map((t) => FilterChip(
+                              backgroundColor: Colors.lightBlue,
+                              label: Text(
+                                t.type.name[0].toUpperCase() + t.type.name.substring(1),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
+                                ),
                               ),
-                            ),
-                            onSelected: (b) {},
-                          )).toList(),
+                              onSelected: (b) {},
+                            )).toList(),
                         ),
+                          ),
                       ],
                     ),
                   ),
@@ -216,31 +220,21 @@ class PokeDetails extends StatelessWidget {
                 ),
                 Column(
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: pokemonDetails.stats.map((s) => FilterChip(
-                        backgroundColor: Colors.blue,
-                        label: Text(
-                          s.stat.name,
-                          style: TextStyle(
-                              color: Colors.white
+                    Center(
+                      child: Wrap(
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: pokemonDetails.stats.map((s) => FilterChip(
+                          backgroundColor: Colors.yellow,
+                          label: Text(
+                            s.stat.name[0].toUpperCase() + s.stat.name.substring(1) + ": " + s.baseStat.toString(),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold
+                            ),
                           ),
-                        ),
-                        onSelected: (b) {},
-                      )).toList(),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: pokemonDetails.stats.map((s) => FilterChip(
-                        backgroundColor: Colors.red,
-                        label: Text(
-                          s.baseStat.toString(),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        onSelected: (b) {},
-                      )).toList(),
+                          onSelected: (b) {},
+                        )).toList(),
+                      ),
                     ),
                   ],
                 ),

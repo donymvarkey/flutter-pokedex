@@ -6,6 +6,7 @@ import 'package:pokedex/models/Generations.dart';
 import 'package:pokedex/models/Pokemon.dart';
 import 'package:pokedex/models/GenerationDetails.dart';
 import 'package:pokedex/generation_detail.dart';
+import 'package:pokedex/pokemon.dart';
 import 'package:pokedex/popup.dart';
 import 'package:pokedex/popup_content.dart';
 
@@ -74,7 +75,9 @@ class _HomePageState extends State<HomePage> {
             )
         ),
         child: generations == null ?
-        Center(child: CircularProgressIndicator()
+        Center(child: CircularProgressIndicator(
+          backgroundColor: Colors.transparent,
+        )
         ) :
         GridView.count(
           crossAxisCount: 2,
@@ -129,7 +132,8 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }showPopup(BuildContext context, Widget widget, String title,
+  }
+  showPopup(BuildContext context, Widget widget, String title,
       {BuildContext popupContext}) {
     Navigator.push(
       context,
@@ -139,9 +143,6 @@ class _HomePageState extends State<HomePage> {
         right: 30,
         bottom: 370,
         child: Container(
-          // decoration: BoxDecoration(
-          //   borderRadius: BorderRadius.circular(10.0),
-          // ),
           child: Card(
             elevation: 0.0,
             child: PopupContent(
@@ -167,9 +168,9 @@ class _HomePageState extends State<HomePage> {
                                   var decodedData = jsonDecode(data.body);
 
                                   var pokeDetails = Pokemon.fromJson(decodedData);
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => poke(
-                                  //   pokemonDetails: pokeDetails,
-                                  // )));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PokeDetails(
+                                    pokemonDetails: pokeDetails,
+                                  )));
                                 } catch (e) {}
                             },
                             tooltip: 'Search',

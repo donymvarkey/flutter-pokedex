@@ -64,16 +64,16 @@ class GenDetails extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Container(
-                          height: 100.0,
-                          width: 100.0,
-                          child: Text(
-                            pokemon.id
-                          ),
-                           decoration: BoxDecoration(
-                             image: DecorationImage(
-                               image: NetworkImage("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.id + ".png"),
-                             ),
+                        height: 100.0,
+                        width: 100.0,
+                        child: Text(
+                          pokemon.id
+                        ),
+                         decoration: BoxDecoration(
+                           image: DecorationImage(
+                             image: NetworkImage("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.id + ".png"),
                            ),
+                         ),
                         ),
                         Text(
                           (pokemon.name[0].toUpperCase() + pokemon.name.substring(1)),
