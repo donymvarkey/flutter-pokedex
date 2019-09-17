@@ -20,6 +20,12 @@ class _HomePageState extends State<HomePage> {
 
   var genUrl = "https://pokeapi.co/api/v2/generation/";
   Generations generations;
+  @override
+  void initState() {
+    super.initState();
+
+    fetchData();
+  }
 
   final searchController = TextEditingController();
 
@@ -30,22 +36,6 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    fetchData();
-  }
-
-  fetchData() async {
-    var gen = await http.get(genUrl);
-    var decodedGen =  jsonDecode(gen.body);
-
-    generations = Generations.fromJson(decodedGen);
-    setState(() {
-
-    });
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,66 +131,64 @@ class _HomePageState extends State<HomePage> {
         top: 300,
         left: 30,
         right: 30,
-        bottom: 370,
-        child: Container(
-          child: Card(
-            elevation: 0.0,
-            child: PopupContent(
-              content: Scaffold(
-                floatingActionButton: Padding(
-                  padding: const EdgeInsets.only(top:55.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(right:8.0),
-                        child: SizedBox(
-                          width: 60.0,
-                          height: 60.0,
-                          child: FloatingActionButton(
-                            backgroundColor: Colors.amber,
-                            onPressed: () async {
-                              try {
-                                  var pokemonName = searchController.text.toLowerCase();
-                                  String pokemonUrl = "https://pokeapi.co/api/v2/pokemon/"+pokemonName+"/";
-                                  var data = await http.get(pokemonUrl);
-                                  var decodedData = jsonDecode(data.body);
+        bottom: 350,
+        child: Card(
+          elevation: 0.0,
+          child: PopupContent(
+            content: Scaffold(
+              floatingActionButton: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(right:8.0),
+                      child: SizedBox(
+                        width: 60.0,
+                        height: 60.0,
+                        child: FloatingActionButton(
+                          backgroundColor: Colors.amber,
+                          onPressed: () async {
+                            try {
+                                var pokemonName = searchController.text.toLowerCase();
+                                String pokemonUrl = "https://pokeapi.co/api/v2/pokemon/"+pokemonName+"/";
+                                var data = await http.get(pokemonUrl);
+                                var decodedData = jsonDecode(data.body);
 
-                                  var pokeDetails = Pokemon.fromJson(decodedData);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PokeDetails(
-                                    pokemonDetails: pokeDetails,
-                                  )));
-                                } catch (e) {}
-                            },
-                            tooltip: 'Search',
-                            child: Icon(Icons.search, color: Colors.black, size: 30.0,),
-                          ),
+                                var pokeDetails = Pokemon.fromJson(decodedData);
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => PokeDetails(
+                                  pokemonDetails: pokeDetails,
+                                )));
+                              } catch (e) {}
+                          },
+                          tooltip: 'Search',
+                          child: Icon(Icons.search, color: Colors.black, size: 30.0,),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(left:8.0),
-                        child: SizedBox(
-                          width: 60.0,
-                          height: 60.0,
-                          child: FloatingActionButton(
-                            backgroundColor: Colors.amber,
-                            onPressed: () {
-                              try {
-                                  Navigator.pop(context); //close the popup
-                                } catch (e) {}
-                            },
-                            tooltip: 'Close',
-                            child: Icon(Icons.close, color: Colors.black, size: 30.0,),
-                          ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left:8.0),
+                      child: SizedBox(
+                        width: 60.0,
+                        height: 60.0,
+                        child: FloatingActionButton(
+                          backgroundColor: Colors.amber,
+                          onPressed: () {
+                            try {
+                                Navigator.pop(context); //close the popup
+                              } catch (e) {}
+                          },
+                          tooltip: 'Close',
+                          child: Icon(Icons.close, color: Colors.black, size: 30.0,),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                resizeToAvoidBottomPadding: false,
-                body: widget,
               ),
+              resizeToAvoidBottomPadding: false,
+              body: widget,
             ),
           ),
         ),
@@ -229,6 +217,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  fetchData() async {
+    var gen = await http.get(genUrl);
+    var decodedGen =  jsonDecode(gen.body);
+
+    generations = Generations.fromJson(decodedGen);
+    setState(() {
+
+    });
+  }
 
 
 

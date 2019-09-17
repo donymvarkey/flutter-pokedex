@@ -229,7 +229,7 @@ class PokeDetails extends StatelessWidget {
                             s.stat.name[0].toUpperCase() + s.stat.name.substring(1) + ": " + s.baseStat.toString(),
                             style: TextStyle(
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold
+                                fontWeight: FontWeight.bold,
                             ),
                           ),
                           onSelected: (b) {},
