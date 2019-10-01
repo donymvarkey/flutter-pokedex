@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
         )
         ) :
         GridView.count(
-          crossAxisCount: 2,
+          crossAxisCount: 1,
           children: generations.results.map((generation) => Padding(
             padding: const EdgeInsets.all(2.0),
             child: InkWell(
@@ -96,7 +96,6 @@ class _HomePageState extends State<HomePage> {
                           (generation.name[0].toUpperCase() + generation.name.substring(1, 11).toLowerCase() + generation.name.substring(11).toUpperCase()).replaceAll(RegExp("-"), " "),
                           style: TextStyle(
                               fontSize: 20.0,
-                              // fontWeight: FontWeight.bold,
                               color: Colors.black
                           ),
                         ),
